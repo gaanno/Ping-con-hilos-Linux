@@ -11,14 +11,14 @@ struct Nodo
 {
     std::string ip;
     std::string estado;
-    int paquetes_transmitidos;
-    int paquetes_recibidos;
-    int paquetes_perdidos;
+    int paquetesTransmitidos;
+    int paquetesRecibidos;
+    int paquetesPerdidos;
     Nodo *siguiente;
 };
 
 // prototipos
-void agregarPila(Nodo *&, std::string ip, int paquetes_transmitidos, int paquetes_recibidos);
+void agregarPila(Nodo *&, std::string ip, int paquetesTransmitidos, int paquetesRecibidos, int paquetesPerdidos);
 void imprimirPila(Nodo *);
 bool esNumero(const std::string &str);
 
@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
             #pragma omp critical
             {
                 //agrego el elemento a la pila
-                agregarPila(pila, obj.getIp(), obj.getCantidadPaquetesTransmitidos(), obj.getCantidadPaquetesRecibidos());
+                agregarPila(pila, obj.getIp(), obj.getCantidadPaquetesTransmitidos(), obj.getCantidadPaquetesRecibidos(), obj.getCantidadPaquetesPerdidos());
             }
         }
     }
@@ -101,14 +101,14 @@ bool esNumero(const std::string &str)
 }
 
 // agregar elementos a la pila
-void agregarPila(Nodo *&pila, std::string ip, int paquetes_transmitidos, int paquetes_recibidos)
+void agregarPila(Nodo *&pila, std::string ip, int paquetesTransmitidos, int paquetesRecibidos, int paquetesPerdidos)
 {
     Nodo *nuevoNodo = new Nodo();
     nuevoNodo->ip = ip;
-    nuevoNodo->estado = (paquetes_recibidos > 0) ? "UP" : "DOWN";
-    nuevoNodo->paquetes_transmitidos = paquetes_transmitidos;
-    nuevoNodo->paquetes_recibidos = paquetes_recibidos;
-    nuevoNodo->paquetes_perdidos = paquetes_transmitidos - paquetes_recibidos;
+    nuevoNodo->estado = (paquetesRecibidos > 0) ? "UP" : "DOWN";
+    nuevoNodo->paquetesTransmitidos = paquetesTransmitidos;
+    nuevoNodo->paquetesRecibidos = paquetesRecibidos;
+    nuevoNodo->paquetesPerdidos = paquetesPerdidos;
     nuevoNodo->siguiente = pila;
     pila = nuevoNodo;
 }
@@ -122,9 +122,9 @@ void imprimirPila(Nodo *pila)
     {
         std::cout << aux->ip << "\t";
         std::cout << aux->estado << "\t";
-        std::cout << aux->paquetes_transmitidos << "\t";
-        std::cout << aux->paquetes_recibidos << "\t";
-        std::cout << aux->paquetes_perdidos << "\t";
+        std::cout << aux->paquetesTransmitidos << "\t";
+        std::cout << aux->paquetesRecibidos << "\t";
+        std::cout << aux->paquetesPerdidos << "\t";
         std::cout << std::endl;
         aux = aux->siguiente;
     }
