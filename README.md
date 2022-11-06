@@ -3,15 +3,19 @@
 Autor: Gabriel Antonio Norambuena Muñoz.
 
 Asignatura: Sistemas Operativos.
+<<<<<<< HEAD
 
 Lenguaje: C++
+=======
+Lenguaje: C++.
+>>>>>>> 95a6c1b (Descripciones actualizadas)
 
 ## Tabla de contenidos
 1. [Descripción](#descripción)
 2. [Consideraciones](#consideraciones)
 3. [Entrada](#entrada)
 4. [Salida](#salida)
-5. [Compilacion](#compilación)
+5. [Compilación](#compilación)
 6. [Ejemplo archivo](#ejemplo-archivo)
 7. [Ejemplo uso](#ejemplo-uso)
 
@@ -41,9 +45,10 @@ es la siguiente:
 
 ## Entrada
 
-- Cantidad de paquetes a enviar. 
+- Archivo con direcciones IP. Archivo de texto con listado de direcciones IP a monitorizar.
 
-- Cantidad de paquetes que enviará el comando ping a cada dirección IP para conocer sus estado.
+- Cantidad de paquetes a enviar. Cantidad de paquetes que enviará el comando ping a
+cada dirección IP para conocer sus estado.
 
 ## Salida
 
@@ -61,6 +66,7 @@ make tarea
 
 ## Ejemplo archivo
 
+ip.txt
 ~~~
 192.168.10.1
 192.168.10.2

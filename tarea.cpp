@@ -3,7 +3,7 @@
 #include <omp.h>    // para las hebras
 #include <fstream>  // leer archivo
 #include <vector>   // para vector con las ip
-#include <cctype>   // std::isdigit
+#include <cctype>   // isdigit
 #include "LlamarComando.h" // clase que manipula el comando ping
 
 // estructura
@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
         std::cout << "Error: Argumentos invalidos" << std::endl;
         return 1;
     }
-    
+
     // declaracion de variables
     Nodo *pila = NULL;
     int cantidadIp = 0;
@@ -63,10 +63,10 @@ int main(int argc, char *argv[])
     // cierro archivo
     archivo.close();
 
-    // cuento las cantidades de ip
+    // cuenta las cantidades de ip
     cantidadIp = ips.size();
 
-    // hebras
+    // hebras segun la cantidad de ip encontradas
     #pragma omp parallel num_threads (cantidadIp)
     {
         #pragma omp for
@@ -79,8 +79,8 @@ int main(int argc, char *argv[])
             // protege la pila
             #pragma omp critical
             {
-                //agrego el elemento a la pila
-                agregarPila(pila, obj.getIp(), obj.getCantidadPaquetesTransmitidos(), obj.getCantidadPaquetesRecibidos(), obj.getCantidadPaquetesPerdidos());
+                //agrego elemento a la pila
+                agregarPila(pila, obj.ip, obj.getCantidadPaquetesTransmitidos(), obj.getCantidadPaquetesRecibidos(), obj.getCantidadPaquetesPerdidos());
             }
         }
     }
@@ -124,8 +124,7 @@ void imprimirPila(Nodo *pila)
         std::cout << aux->estado << "\t";
         std::cout << aux->paquetesTransmitidos << "\t";
         std::cout << aux->paquetesRecibidos << "\t";
-        std::cout << aux->paquetesPerdidos << "\t";
-        std::cout << std::endl;
+        std::cout << aux->paquetesPerdidos << std::endl;
         aux = aux->siguiente;
     }
 }

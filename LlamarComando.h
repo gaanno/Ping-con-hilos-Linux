@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
-#include <sstream>
+#include <sstream>  // stringstream
 
+// Clase para manipular comando ping
 class LlamarComando
 {
     public:
@@ -9,16 +10,16 @@ class LlamarComando
         std::string cantidadPaquetes;
         std::string getIp();
         void ejecutarComando();
-        int getCantidadPaquetesRecibidos();
         int getCantidadPaquetesPerdidos();
+        int getCantidadPaquetesRecibidos();
         int getCantidadPaquetesTransmitidos();
         LlamarComando(std::string ip, std::string cantidadPaquetes);
 
     private:
         std::string respuesta;
-        int paquetesTransmitidos;
-        int paquetesRecibidos;
         int paquetesPerdidos;
+        int paquetesRecibidos;
+        int paquetesTransmitidos;
         void separarRespuesta();
 };
 
@@ -29,22 +30,28 @@ LlamarComando::LlamarComando(std::string ip, std::string cantidadPaquetes)
     this->cantidadPaquetes = cantidadPaquetes;
 }
 
-// limpia aun mas la respuesta obtenida de ping
+// limpia aun mas la respuesta obtenida de ping y las almacena en variables
 void LlamarComando::separarRespuesta()
 {
-    std::stringstream input_stringstream(this->respuesta);
+    std::stringstream inputStringstream(this->respuesta);
     std::string aux;
-    getline(input_stringstream, aux, '\n');
+    getline(inputStringstream, aux, '\n');
     this->paquetesTransmitidos = std::stoi(aux);
-    getline(input_stringstream, aux, '\n');
+    getline(inputStringstream, aux, '\n');
     this->paquetesRecibidos = std::stoi(aux);
     this->paquetesPerdidos = this->paquetesTransmitidos - this->paquetesRecibidos;
 }
 
-// ejecuta el comando ping y separa los paquetes transmitidos con los paquetes recividos
+// ejecuta el comando ping y separa los paquetes transmitidos con los paquetes recibidos
 void LlamarComando::ejecutarComando()
 {
-    std::string comando = "ping -q -c " + this->cantidadPaquetes + " " + this->ip + " | grep -oP '[\\d+.,]+(?= packets transmitted)'\\|'[\\d+.,]+(?= received)'";
+    // pipe para simplificar la lectura de la respuesta
+    std::string grep = " | grep -oP '[\\d+.,]+(?= packets transmitted)'\\|'[\\d+.,]+(?= received)'";
+
+    // comando ping a ejecutar
+    std::string comando = "ping -q -c " + this->cantidadPaquetes + " " + this->ip + grep;
+
+    // ejecuta el comando guardando la respuesta de la terminal en variable respuesta
     char buffer[256];
     FILE *pipe = popen(comando.c_str(), "r");
     if (!pipe)
@@ -58,12 +65,6 @@ void LlamarComando::ejecutarComando()
     }
     pclose(pipe);
     this->separarRespuesta();
-}
-
-// retorna la ip
-std::string LlamarComando::getIp()
-{
-    return this->ip;
 }
 
 // retorna la cantidad de paquetes recibidos
