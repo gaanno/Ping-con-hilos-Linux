@@ -3,12 +3,8 @@
 Autor: Gabriel Antonio Norambuena Muñoz.
 
 Asignatura: Sistemas Operativos.
-<<<<<<< HEAD
 
 Lenguaje: C++
-=======
-Lenguaje: C++.
->>>>>>> 95a6c1b (Descripciones actualizadas)
 
 ## Tabla de contenidos
 1. [Descripción](#descripción)
