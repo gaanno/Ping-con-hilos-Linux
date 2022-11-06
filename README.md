@@ -1,7 +1,9 @@
 # Tarea 2
 
 Autor: Gabriel Antonio Norambuena Muñoz.
+
 Asignatura: Sistemas Operativos.
+
 Lenguaje: C++
 
 ## Tabla de contenidos
